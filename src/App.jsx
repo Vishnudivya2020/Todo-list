@@ -13,18 +13,28 @@ function App() {
  const [currentEdit, setCurrentEdit] = useState("");
  const [currentEditedItem, setCurrentEditedItem]=useState("");
 
- const handleAddTodo = () =>{
+ const handleAddTodo = (e) =>{
+  e.preventDefault();
+
+  if(!newTitle.trim() || !newDescription.trim()){
+    alert("Please enter both Title and Description!");
+    return;
+  }
   let newTodoItem = {
     title:newTitle,
     description:newDescription,
     
   };
+
   let updatedTodoArr=[...allTodos];
   updatedTodoArr.push(newTodoItem);
   setTodos(updatedTodoArr);
   localStorage.setItem('todolist',JSON.stringify(updatedTodoArr));
   
+  setNewTitle("");
+  setNewDescription("");
  };
+
 
  const handleDeleteTodo = index =>{
   let reducedTodo = [...allTodos];
